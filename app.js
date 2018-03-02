@@ -46,6 +46,7 @@ doScrapeAndDownload = (url) => {
 
 prepareParams = (url) => {
   rl.question('Screenshot the URL? (y/n): ', (answer) => {
+    answer = answer.toLowerCase();
     if(answer == 'y' || answer == 'yes') {
       doScrapeAndDownload(url);
       screenshot.screenshotPage(url);
