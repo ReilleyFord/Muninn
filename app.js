@@ -8,6 +8,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+//Some urls for testing
 const urls = [
   'https://www.reddit.com/r/CanadianCars',
   'https://www.instagram.com/the_supercars_of_ottawa',
@@ -28,8 +29,33 @@ doScrapeAndDownload = (url) => {
   });
 }
 
-rl.question("Enter a URL for scraping: ", (answer) => {
-  doScrapeAndDownload(answer);
-  screenshot.screenshotPage(answer);
-  rl.close();
-});
+/*
+  getURL IIFE that grabs a user entered URL then calls doScrapeAndDownload()
+  function, screenshotPage() function then closes the interface
+*/
+(getURL = () => {
+  rl.question("Enter a URL for scraping: ", (answer) => {
+    if(answer != '') {
+      prepareParams(answer);
+    } else {
+      console.log('URL cannot be blank');
+      getURL();
+    }
+  });
+})();
+
+prepareParams = (url) => {
+  rl.question('Screenshot the URL? (y/n): ', (answer) => {
+    if(answer == 'y' || answer == 'yes') {
+      doScrapeAndDownload(url);
+      screenshot.screenshotPage(url);
+      rl.close();
+    } else if(answer == 'n' || answer =='no') {
+      doScrapeAndDownload(url);
+      rl.close();
+    } else {
+      console.log('Invalid choice. Only (y/n)');
+      prepareParams(url);
+    }
+  })
+}
