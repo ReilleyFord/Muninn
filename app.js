@@ -1,7 +1,7 @@
 const readline = require('readline')
 const scrape = require('./Modules/scrape.js');
 const download = require('./Modules/download.js');
-const screenshot = require('./Modules/screenshot.js');
+//const screenshot = require('./Modules/screenshot.js');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -45,18 +45,19 @@ doScrapeAndDownload = (url) => {
 })();
 
 prepareParams = (url) => {
-  rl.question('Screenshot the URL? (y/n): ', (answer) => {
-    answer = answer.toLowerCase();
-    if(answer == 'y' || answer == 'yes') {
-      doScrapeAndDownload(url);
-      screenshot.screenshotPage(url);
-      rl.close();
-    } else if(answer == 'n' || answer =='no') {
-      doScrapeAndDownload(url);
-      rl.close();
-    } else {
-      console.log('Invalid choice. Only (y/n)');
-      prepareParams(url);
-    }
-  })
+  doScrapeAndDownload(url);
+  // rl.question('Screenshot the URL? (y/n): ', (answer) => {
+  //   answer = answer.toLowerCase();
+  //   if(answer == 'y' || answer == 'yes') {
+  //     doScrapeAndDownload(url);
+  //     screenshot.screenshotPage(url);
+  //     rl.close();
+  //   } else if(answer == 'n' || answer =='no') {
+  //     doScrapeAndDownload(url);
+  //     rl.close();
+  //   } else {
+  //     console.log('Invalid choice. Only (y/n)');
+  //     prepareParams(url);
+  //   }
+  // })
 }
